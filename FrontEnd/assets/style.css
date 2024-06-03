@@ -132,11 +132,55 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img {
 	width: 100%;
 
 }
+
+/* Ajout code */
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.logIn {
+	margin-top: 150px;
+	margin-bottom: 40px;
+}
+.motDePasse {
+	text-decoration: underline;
+	cursor: pointer;
+	display: block;
+	text-align: center;
+	margin-bottom: 355px;
+}
+
+.filters {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin: 2em 0 3em 0;
+}
+
+.filtersButton {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #1D6154;
+	border: 1px solid #1D6154;
+	border-radius: 60px ;
+	background-color: white;
+	text-align: center;
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+}
+
+.filtersButton:hover,
+.filtersButtonActivated {
+	color: white;
+	background-color: #1D6154;
+}
+
 #contact {
 	width: 50%;
 margin: auto;
