@@ -1,4 +1,4 @@
-// Script type="module" définie dans page index html, ce qui permet d'utiliser await directement car on est déjà en asynchrone  )
+// Script type="module" définie dans page index html, ce qui permet d'utiliser await directement car on est déjà en asynchrone
 
 // Récupération des "works" (projets) depuis l'API. 
 
@@ -56,11 +56,11 @@ function renderFilters(categories) {
     // Récupération de l'élément du DOM qui accueillera les filtres
     const filters = document.querySelector(".filters");
 
-    // Création d’une balise dédiée au filtre "Tous" (resetFilters)
+    // Création d’une balise dédiée au filtre "Tous" (par défaut)
     const buttonElement = document.createElement("button");
     buttonElement.innerText = "Tous"
     buttonElement.dataset.id = "0"
-    buttonElement.classList.add("filtersButton", "filtersButtonActivated")
+    buttonElement.classList.add("filterButton", "filterButtonActivated")
     filters.appendChild(buttonElement)
 
     categories.map((category) => {
@@ -69,7 +69,7 @@ function renderFilters(categories) {
         const buttonElement = document.createElement("button");
         buttonElement.innerText = category.name;
         buttonElement.dataset.id = category.id
-        buttonElement.classList.add("filtersButton")
+        buttonElement.classList.add("filterButton")
 
         // Rattachement des balises crées au DOM
         filters.appendChild(buttonElement);
@@ -92,72 +92,47 @@ function removeGallery() {
 // Fonction qui permet de selectionner le filtre
 
 function selectFilter(id) {
-    let filters = document.querySelectorAll(".filtersButton")
-    filters[event.target.dataset.id].classList.add("filtersButtonActivated")
+    let filters = document.querySelectorAll(".filterButton")
+    filters[event.target.dataset.id].classList.add("filterButtonActivated")
 }
 
 
 // Fonction qui réinitialise les filtres (permet qu'ils soient tous déselectionnées)
 
 function resetFilters() {
-    let filters = document.querySelectorAll(".filtersButton")
+    let filters = document.querySelectorAll(".filterButton")
     for (let compteur = 0; compteur < filters.length; compteur++) {
-        filters[compteur].classList.remove("filtersButtonActivated")
+        filters[compteur].classList.remove("filterButtonActivated")
     }
 }
 
 
 // Fonction principale de filtrage des travaux "works"
 
-function filterWorks(id) {
+function filterWorks(eventTargetDataSetId) {
+    removeGallery()
+    resetFilters()
+    selectFilter(event.target.dataset.id)
     if (event.target.dataset.id == 0) {
-        removeGallery()
         renderWorks(works)
-        resetFilters()
-        selectFilter(event.target.dataset.id)
     } else {
         const worksFiltres = works.filter(work => work.categoryId == event.target.dataset.id)
-        removeGallery()
         renderWorks(worksFiltres)
-        resetFilters()
-        selectFilter(event.target.dataset.id)
     }
 }
 
 
-//  Gestion de l'évènement "click" sur le bouton filtre "Tous" 
+//  Gestion de l'évènement "click" sur les boutons filtres 
 
-const filterAll = document.querySelector(`.filtersButton[data-id="0"]`)
-
-filterAll.addEventListener("click", () => {
-    filterWorks(event.target.dataset.id)
+// Récupération de tous les boutons filtres
+const filterbuttons = document.querySelectorAll(".filterButton")
+// Boucle sur l'ensemble des boutons filtres pour récupérer le "dataset.id" du bouton filtre cliqué et appliquer la fonction de filtrage "filterWorks"
+filterbuttons.forEach((filterbutton) => {
+    filterbutton.addEventListener("click", (event) => {
+        filterWorks(event.target.dataset.id)
+    })
 })
 
-
-//  Gestion de l'évènement "click" sur le bouton filtre "Objets"
-
-const filterObjects = document.querySelector(`.filtersButton[data-id="1"]`)
-
-filterObjects.addEventListener("click", (event) => {
-    filterWorks(event.target.dataset.id)
-})
-
-//  Gestion de l'évènement "click" sur le bouton filtre "Appartements"
-
-const filterApartment = document.querySelector(`.filtersButton[data-id="2"]`)
-
-filterApartment.addEventListener("click", (event) => {
-    filterWorks(event.target.dataset.id)
-})
-
-
-//  Gestion de l'évènement "click" sur le bouton filtre "Hotels & restaurants"
-
-const filterHotelsRestaurants = document.querySelector(`.filtersButton[data-id="3"]`)
-
-filterHotelsRestaurants.addEventListener("click", (event) => {
-    filterWorks(event.target.dataset.id)
-})
 
 
 

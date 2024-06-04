@@ -24,6 +24,7 @@ formLogin.addEventListener("submit", async (event) => {
     // revoir si autre façon de faire que voir s'il existe un "token"
     if (response.token) {
         window.localStorage.setItem("token", response.token)
+        // Redirection de la page
         document.location.href = "http://127.0.0.1:5501/FrontEnd/"
     } else {
         alert("Erreur dans l’identifiant ou le mot de passe")

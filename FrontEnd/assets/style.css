@@ -263,7 +263,7 @@ a {
 	margin: 2em 0 3em 0;
 }
 
-.filtersButton {
+.filterButton {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: #1D6154;
@@ -275,8 +275,8 @@ a {
 	cursor: pointer;
 }
 
-.filtersButton:hover,
-.filtersButtonActivated {
+.filterButton:hover,
+.filterButtonActivated {
 	color: white;
 	background-color: #1D6154;
 }
