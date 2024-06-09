@@ -237,10 +237,42 @@ li:hover {
 }
 
 /* Ajout code */
+.blackBar {
+	background-color: #000;
+	color: #ffffff;
+	width: 100%;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap:12px;
+	margin: 0;
+}
+
+.liActivated{
+	color: #B1663C;
+}
 
 a {
 	text-decoration: none;
 	color: inherit;
+}
+
+
+.linkModifierElement {
+	color: #000;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+	gap: 10px;
+	margin-left: 30px;
+	display:inline;
+}
+
+.linkModifierElementRemove{
+	display: none;
 }
 
 .logIn {
@@ -280,6 +312,40 @@ a {
 	color: white;
 	background-color: #1D6154;
 }
+
+
+/* fenêtre modal */
+
+* {
+    box-sizing: border-box;
+}
+
+.modal {
+    position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+	
+}
+
+.modal-coantainer {
+	/* Ajoute une barre pour scroller au besoin */
+	overflow: auto;
+	width: 630px;
+	/* Permet de laisser une marge en cas d'écran ou fenêtre trop petit */
+	min-width: calc(100vw - 20px);
+	min-height: calc(100vh - 20px);  /*690px*/
+	height: 690px;
+	padding: 25px;
+	background-color: #ffffff;
+}
+
 
 /* Fin ajout code */
 

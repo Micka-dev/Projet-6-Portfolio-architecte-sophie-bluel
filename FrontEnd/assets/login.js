@@ -5,7 +5,7 @@ formLogin.addEventListener("submit", async (event) => {
 
     // Création de l’objet login (charge utile)
     const objectLogin = {
-        password: event.target.querySelector("[name=password").value,
+        password: event.target.querySelector("[name=password]").value,
         email: event.target.querySelector("[name=email]").value,
     }
 
@@ -13,20 +13,29 @@ formLogin.addEventListener("submit", async (event) => {
     const bodyLogin = JSON.stringify(objectLogin);
 
     // Appel de la fonction fetch avec toutes les informations nécessaires
-    const sending = await fetch("http://localhost:5678/api/users/login", {
+    const response = await fetch("http://localhost:5678/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: bodyLogin
     });
-    let response = await sending.json()
-    console.log(response)
+    // Formatage de la réponse en Json
+    let responseJson = await response.json()
+    // console.log(response)
+    // console.log(responseJson)
 
-    // revoir si autre façon de faire que voir s'il existe un "token"
-    if (response.token) {
-        window.localStorage.setItem("token", response.token)
-        // Redirection de la page
-        document.location.href = "http://127.0.0.1:5501/FrontEnd/"
-    } else {
-        alert("Erreur dans l’identifiant ou le mot de passe")
+    // Vérification du code retour de la réponse du login
+    if (response.ok) {
+        if (response.headers.status = 200) {
+            window.localStorage.setItem("token", responseJson.token)
+            // Redirection de la page
+            document.location.href = "http://127.0.0.1:5501/FrontEnd/"
+        }
+    }else{
+        if (response.headers.status = 401 || 404){
+            alert("Erreur dans l’identifiant ou le mot de passe")
+        }else{
+            alert("Désolé nous ne pouvons donner suite à votre demande, veuillez vous connecter ultérieurement.")
+        }
     }
 })
+
