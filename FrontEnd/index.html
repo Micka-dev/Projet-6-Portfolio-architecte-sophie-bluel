@@ -14,7 +14,8 @@
 
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="./assets/script.js" defer></script>
+	<script type="module" src="./assets/script.js" ></script>
+	<script type="module" src="./assets/modal.js" ></script>
 </head>
 <body>
 <header>
@@ -22,7 +23,7 @@
 	<nav>
 		<ul>
 			<li class="liActivated">projets</li>
-			<li>contact</li>
+			<li><a href="#contact">contact</a></li>
 			<!-- Ajout du lien login -->
 			<li><a href="pagesHtml/login.html" class="login-link" >login</a></li> 
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
@@ -44,16 +45,14 @@
 	<section id="portfolio">
 		<h2>
 			Mes projets
-			<a class="linkModifierElement linkModifierElementRemove" href="#">
-				<i class="fa-regular fa-pen-to-square">
-				</i>
+			<a class="linkModifierElement linkModifierElementRemove" href="#" role="button" data-target="#modal"
+				data-toggle="modal">
+				<i class="fa-regular fa-pen-to-square"></i>
 				Modifier
 			</a>
 		</h2>
 		<div class="filters"></div>
-		<div class="gallery">
-			
-		</div>
+		<div class="gallery"></div>
 	</section>
 	<section id="contact">
 		<h2>Contact</h2>
@@ -68,7 +67,33 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>
+
+	 <!-- Bouton d'ouverture de la modale -->
+
+	 <!-- 	role="button" => permet de définir le rôle d'ouverture non un simple lien de navigation 
+			data-target="#modal"=> permet de définir quelle modale on ouvre grâce à son id
+			data-toggle="modal" permet d'identifier le lien, il fait un toggle de modal (au cas où il y aurait d'autres liens) -->
+	
+	<!-- <a href="#" role="button" data-target="#modal" data-toggle="modal"> Ouvrir la boîte modale</a> -->
+
+	<!-- Modale -->
+
+	<!--	role="dialog"=> permet de definir un rôle de dialogue, permet de dialoguer avec l'utilisateur -->
+	<div id="modal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="tiltleModal" >
+		<div class="modal-content">
+			<div class="close-modal" role="button" data-dismiss="dialog"><i class="fa-solid fa-xmark"></i></div>
+			<div class="modal-header">
+				<h3 id="tiltleModal" class="tiltleModal">Galerie photo</h3>
+			</div>
+			<div class="modal-body"></div>
+			<footer class="modal-footer">
+				<a href="#" class="btn" role="button">Ajouter une photo</a>
+			</footer>
+		</div>
+	</div>
+	<!-- <script src="./assets/modal.js"></script> -->
 </main>
+
 
 <footer>
 	<nav>
