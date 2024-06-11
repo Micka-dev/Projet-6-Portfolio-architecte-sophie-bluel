@@ -9,7 +9,7 @@ const response = await fetch('http://localhost:5678/api/works');
 
 // Formatage de la reponse en json
 const works = await response.json();
-
+console.log(works)
 
 // Fonction qui affiche tous les projets, les "works" sur la page web
 
@@ -21,7 +21,7 @@ function renderWorks(works) {
         
         // Récupération de l'élément du DOM qui accueillera les works
         const gallery = document.querySelector(".gallery");
-        
+
         // Création d’une balise dédiée à un work
         const figureElement = document.createElement("figure");
         
@@ -54,6 +54,20 @@ renderWorks(works)
 const answer = await fetch('http://localhost:5678/api/categories');
 const categories = await answer.json();
 
+
+// Fonction qui permet de créer un bouton filtre
+
+function createButton(name, id, classes) {
+    const buttonElement = document.createElement("button");
+    buttonElement.innerText = name
+    buttonElement.dataset.id = id
+    classes.map((className) => {
+        buttonElement.classList.add(className)
+    })
+    return buttonElement
+}
+
+
 function renderFilters(categories) {
     
     // Création des balises
@@ -78,17 +92,6 @@ function renderFilters(categories) {
     })
 }
 
-// Fonction qui permet de créer un bouton filtre
-
-function createButton(name, id, classes) {
-    const buttonElement = document.createElement("button");
-    buttonElement.innerText = name
-    buttonElement.dataset.id = id
-    classes.map((className) => {
-        buttonElement.classList.add(className)
-    })
-    return buttonElement
-}
 
 
 // Fonction qui affiche les filtres sur la page web
@@ -197,8 +200,8 @@ function loged () {
 }
 
 
-// Affichage de la page web en mode édition
-// """"""""""""""""""""""""""""""""""""""""
+// Fonction qui affiche de la page web en mode édition
+// """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 loged()
 

@@ -236,7 +236,10 @@ li:hover {
 
 }
 
-/* Ajout code */
+/* //////////////////////////////////////////////////////////////////////////////////////// */
+
+/* DEBUT AJOUT CODE */
+
 .blackBar {
 	background-color: #000;
 	color: #ffffff;
@@ -245,11 +248,11 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap:12px;
+	gap: 12px;
 	margin: 0;
 }
 
-.liActivated{
+.liActivated {
 	color: #B1663C;
 }
 
@@ -268,10 +271,10 @@ a {
 	line-height: normal;
 	gap: 10px;
 	margin-left: 30px;
-	display:inline;
+	display: inline;
 }
 
-.linkModifierElementRemove{
+.linkModifierElementRemove {
 	display: none;
 }
 
@@ -295,7 +298,8 @@ a {
 	margin: 2em 0 3em 0;
 }
 
-.filterButton {
+.filterButton,
+.btn {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: #1D6154;
@@ -308,46 +312,116 @@ a {
 }
 
 .filterButton:hover,
+.btn:hover,
 .filterButtonActivated {
 	color: white;
 	background-color: #1D6154;
 }
 
 
-/* fenêtre modal */
+/* ajout code fenêtre modal */
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .modal {
-    position: fixed;
+	position: fixed;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-	
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	/* z-index: 1000; */
+	visibility: hidden;
+	opacity: 0;
+	transition: 2s;
 }
 
-.modal-coantainer {
+/* affichage seulement et seulemnt si présence des deux classes */
+.modal.show {
+	visibility: visible;
+	opacity: 1;
+}
+
+.modal-content {
 	/* Ajoute une barre pour scroller au besoin */
 	overflow: auto;
 	width: 630px;
 	/* Permet de laisser une marge en cas d'écran ou fenêtre trop petit */
-	min-width: calc(100vw - 20px);
-	min-height: calc(100vh - 20px);  /*690px*/
-	height: 690px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
 	padding: 25px;
 	background-color: #ffffff;
+	border-radius: 10px;
+	padding: 10px 100px;
+	text-align: center;
+	position: relative;
+}
+
+.fa-xmark {
+	position: absolute;
+	top: 25px;
+	right: 30px;
+	cursor: pointer;
+	width: 24px;
+	height: 24px;
+}
+
+.tiltleModal{
+	margin: 60px 0 45px 0;
+	color: #000;
+	font-family: "Work Sans";
+	font-size: 26px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.modal-body {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 25px;
+	column-gap: 7px;
+	margin-bottom: 55px;
+}
+
+.modal-body img {
+	width: 80px;
+	height: 105px;
+}
+
+.modal-body figure {
+	position:relative
+}
+
+/* trash link */
+.modal-body figure a {
+	cursor: pointer;
+}
+
+.fa-trash-can {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: #000000;
+	color: #ffffff;
+	padding: 3px 4px;
+	border-radius: 2px;
+}
+
+.modal-footer {
+	padding: 45px 0;
+	border-top: solid 1px #B3B3B3;
 }
 
 
-/* Fin ajout code */
+/* FIN AJOUT CODE */
+
+/* ////////////////////////////////////////////////////////////////////////////////////////////// */
 
 #contact {
 	width: 50%;

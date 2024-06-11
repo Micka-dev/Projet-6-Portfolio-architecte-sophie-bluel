@@ -28,7 +28,7 @@ formLogin.addEventListener("submit", async (event) => {
         if (response.headers.status = 200) {
             window.localStorage.setItem("token", responseJson.token)
             // Redirection de la page
-            document.location.href = "http://127.0.0.1:5501/FrontEnd/"
+            document.location.href = "http://127.0.0.1:5500/FrontEnd/"
         }
     }else{
         if (response.headers.status = 401 || 404){
