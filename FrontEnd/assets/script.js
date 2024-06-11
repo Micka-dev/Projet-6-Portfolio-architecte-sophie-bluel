@@ -24,6 +24,7 @@ function renderWorks(works) {
 
         // Création d’une balise dédiée à un work
         const figureElement = document.createElement("figure");
+        figureElement.dataset.id = work.id
         
         const imageElement = document.createElement("img");
         imageElement.src = work.imageUrl;

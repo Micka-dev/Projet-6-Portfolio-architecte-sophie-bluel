@@ -338,7 +338,7 @@ a {
 	/* z-index: 1000; */
 	visibility: hidden;
 	opacity: 0;
-	transition: 2s;
+	transition: .2s;
 }
 
 /* affichage seulement et seulemnt si présence des deux classes */
