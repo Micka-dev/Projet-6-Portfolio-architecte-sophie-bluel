@@ -85,28 +85,43 @@ modal.children[0].addEventListener("click", (event) => {
 
 // Gestion du clic sur l'icône poubelle (suppression work)
 
+// On récupère tous les boutons de suppression
 const trashButtons = document.querySelectorAll(".modal-body .fa-trash-can")
 
+// On boucle sur ces derniers pour écouter un éventuel évènement
 for (let button of trashButtons) {
-    button.addEventListener("click", function (e) {
+    button.addEventListener("click", async function (e) {
         // On empêche la navigation
-        e.preventDefault();
-        // const id = works[i].id
-        // On récupère le data-id
+        // e.preventDefault();
+        // On récupère le data-id du bouton de suppression
         let target = this.dataset.id
-        console.log(target)
+
+        // On récupère tous les éléments "figure"
         const figures = document.querySelectorAll("figure")
-        console.log(figures)
         for (let figure of figures) {
             if (figure.dataset.id == target) {
-                document.querySelector(`figure[data-id="${target}"]`).setAttribute("dipalay","none")
+                const token = localStorage.token
+                const response = await fetch("http://localhost:5678/api/works/" + { target }, {
+                    method: "DELETE",
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+                // Formatage de la reponse en json
+                // const responseJson = await response.json()
+                if (response.ok) {
+                    console.log(response)
+                    if (response.headers.status = 200) {
+                        figure.remove()
+                    }
+                } else {
+                    if (response.headers.status = 401 || 500){
+                        alert("non autorisé ou comportement inattendu")
+                    }else{
+                        alert("Désolé nous ne pouvons donner suite à votre demande, veuillez essayer ultérieurement.")
+                    }
                 }
-            console.log(figure.dataset.id)
+            }
         }
-
-
-        // (`article[data-id="${id}"]`)
-        // document.querySelector(`article[data-id="${id}"]`)
-
     })
 }
+
+
