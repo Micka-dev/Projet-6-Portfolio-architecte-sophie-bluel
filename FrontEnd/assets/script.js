@@ -2,6 +2,8 @@
 
 
 
+// Fonction qui permet l'affichage des projets "works" sur la page web
+// """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 // Récupération des "works" (projets) depuis l'API. 
 
@@ -41,14 +43,17 @@ function renderWorks(works) {
     })
 }
 
-// Affichage des projets "works" sur la page web
-// """"""""""""""""""""""""""""""""""""""""""""""
+
+// Appel de la fonction qui permet l'affichage des projets "works" sur la page web
 
 renderWorks(works)
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
+
+// Fonction qui affiche les filtres sur la page web
+// """"""""""""""""""""""""""""""""""""""""""""""""
 
 // Récupération des "categories" (filtres) depuis l'API
 
@@ -94,9 +99,8 @@ function renderFilters(categories) {
 }
 
 
+// Appel de la fonction qui affiche les filtres sur la page web
 
-// Fonction qui affiche les filtres sur la page web
-// """"""""""""""""""""""""""""""""""""""""""""""""
 renderFilters(categories)
 
 
@@ -132,6 +136,7 @@ function resetFilters() {
 
 
 // Fonction principale de filtrage des travaux "works"
+// """"""""""""""""""""""""""""""""""""""""""""""""""
 
 function filterWorks(event) {
     removeGallery()
@@ -147,6 +152,7 @@ function filterWorks(event) {
 
 
 //  Gestion de l'évènement "click" sur les boutons filtres 
+// """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 // Récupération de tous les boutons filtres
 const filterbuttons = document.querySelectorAll(".filterButton")
@@ -158,16 +164,65 @@ filterbuttons.forEach((filterButton) => {
 })
 
 
+
 ////////////////////////////////////////////////////////////////////////////
 // 
-//               Section Utilisateur connecté
-//               ****************************
+//                    Section Utilisateur connecté
+//                    ****************************
 // 
 ////////////////////////////////////////////////////////////////////////////
 
 
-function loged () {
-    if (localStorage.token) {
+const token = localStorage.token
+
+// Fonction qui permet de controler si le token est toujours valide
+// """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function isTokenValid(token) {
+    // Transformation du "token" en tableau afin de récupérer par la suite le header, le payload et la signature de manière indépendante
+    const arrayToken = token.split('.')
+    // Décodage de la chaîne de données (codée en encodage Base64) grâce à la fonction atob() ; et récupération du timesamp d'experation du token dans l'objet
+    const tokenPayLoad = JSON.parse(atob(arrayToken[1]))
+    // Déclaration de la variable "now" correspondant au timestamp au moment T
+    const now = Math.floor(new Date().getTime() / 1000)
+    // Condition permettant de controler si le token est toujours valide
+    if (now <= tokenPayLoad.exp) {
+        return true
+    }else{
+        return false
+    }
+}
+
+// Appel de la fonction permettant le controle de validité du token
+
+isTokenValid(token)
+
+//                                  *************
+
+// Fonction qui vérifie les conditions d'authentification nécessaire à l'accès à la page d'édition
+// """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function isLoged() {
+    if (localStorage.token && isTokenValid(token) == true){
+        return true
+    }else{
+        return false
+    }
+}
+
+// Appel de la fonction permettant de vérifier si l'utilisateur est connecté
+
+isLoged()
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Fonction qui permet d'afficher la page d'édition
+// """"""""""""""""""""""""""""""""""""""""""""""""
+
+function renderEditionPage () {
+    if (isLoged() == true) {
         const logLink = document.querySelector(".login-link")
         logLink.innerText = "logout"
         // Déconnection au clic sur le lien "logout"
@@ -175,7 +230,7 @@ function loged () {
             localStorage.removeItem("token")
         })
         
-        // Création de la blackBar
+        // Création de la blackBar (bar mode édition)
         const divElement = document.createElement("div");
         const iconElement = document.createElement("i");
         const pElement = document.createElement("p");
@@ -201,10 +256,9 @@ function loged () {
 }
 
 
-// Fonction qui affiche de la page web en mode édition
-// """"""""""""""""""""""""""""""""""""""""""""""""""""
+// Appel de la fonction qui affiche la page web en mode édition
 
-loged()
+renderEditionPage ()
 
 
 

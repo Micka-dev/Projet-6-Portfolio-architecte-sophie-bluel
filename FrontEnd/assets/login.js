@@ -1,4 +1,6 @@
 // Gestion de l'écoute de l'évènement "submit" du formulaire
+// """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 const formLogin = document.querySelector(".logIn")
 formLogin.addEventListener("submit", async (event) => {
     event.preventDefault()
@@ -20,22 +22,17 @@ formLogin.addEventListener("submit", async (event) => {
     });
     // Formatage de la réponse en Json
     let responseJson = await response.json()
-    // console.log(response)
-    // console.log(responseJson)
 
     // Vérification du code retour de la réponse du login
-    if (response.ok) {
-        if (response.headers.status = 200) {
-            window.localStorage.setItem("token", responseJson.token)
-            // Redirection de la page
-            document.location.href = "http://127.0.0.1:5500/FrontEnd/"
-        }
-    }else{
-        if (response.headers.status = 401 || 404){
-            alert("Erreur dans l’identifiant ou le mot de passe")
-        }else{
-            alert("Désolé nous ne pouvons donner suite à votre demande, veuillez vous connecter ultérieurement.")
-        }
+    if (response.status == 200) {                                    
+        window.localStorage.setItem("token", responseJson.token)
+        // Redirection de la page
+        document.location.href = "http://127.0.0.1:5500/"
+        // Gestion des erreurs
+    } else if (response.status == 401 || 404) {
+        alert("Erreur dans l’identifiant ou le mot de passe")
+    } else {
+        alert("Désolé nous ne pouvons donner suite à votre demande, un problème est survenu.")
     }
 })
 

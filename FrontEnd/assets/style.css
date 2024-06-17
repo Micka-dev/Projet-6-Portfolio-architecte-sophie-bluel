@@ -362,6 +362,23 @@ a {
 	position: relative;
 }
 
+/* .modal-content.modal1{
+	display: none;
+} */
+
+.modal-content.modal2{
+	display: none;
+}
+
+.fa-arrow-left {
+	position: absolute;
+	top: 25px;
+	left: 30px;
+	cursor: pointer;
+	width: 24px;
+	height: 24px;
+}
+
 .fa-xmark {
 	position: absolute;
 	top: 25px;
@@ -398,6 +415,77 @@ a {
 	position:relative
 }
 
+.pictureContainer {
+	width: 420px;
+	height: 170px;
+	border-radius: 3px;
+	background-color: #E8F1F6;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	margin-bottom: 30px;
+	}
+	
+	.pictureContainer p {
+		color: #444444;
+		font-family: "Work Sans";
+		font-size: 10px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+	}
+	
+.fa-image {
+	font-size: 75px;
+	color: #B9C5CC;
+	margin-bottom: 7px;
+
+}
+
+.btnAddPicture {
+	width: 175px;
+	height: 35px;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	border: none;
+	color: #306685;
+	margin-bottom: 7px;
+	font-size: 14px;
+}
+
+.formContent {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	margin-top: 30px;
+	font-size: 1rem;
+}
+
+.formContent label {
+	color: #3D3D3D;
+	font-family: "Work Sans";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin-bottom: 10px;
+}
+
+.formContent input,
+.formContent select {
+	margin-bottom: 20px;
+	height: 50px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	background: #FFF;
+}
+
+#btnGrey {
+	background-color: #A7A7A7;
+	border: none;
+}
+
 /* trash link */
 .modal-body figure a {
 	cursor: pointer;
@@ -416,6 +504,12 @@ a {
 .modal-footer {
 	padding: 45px 0;
 	border-top: solid 1px #B3B3B3;
+}
+
+.line {
+	height: 25px;
+	border-bottom: solid 1px #B3B3B3;
+
 }
 
 
@@ -469,6 +563,7 @@ input[type="submit"] {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
+	cursor: pointer;
 }
 
 footer nav ul {
