@@ -1,6 +1,7 @@
-// Gestion de l'écoute de l'évènement "submit" du formulaire
-// """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+// Gestion de l'écoute de l'évènement "submit" du formulaire de connexion
+// """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+// Récupération du formulaire "formLogin"
 const formLogin = document.querySelector(".logIn")
 formLogin.addEventListener("submit", async (event) => {
     event.preventDefault()
@@ -26,13 +27,15 @@ formLogin.addEventListener("submit", async (event) => {
     // Vérification du code retour de la réponse du login
     if (response.status == 200) {                                    
         window.localStorage.setItem("token", responseJson.token)
+
         // Redirection de la page
         document.location.href = "http://127.0.0.1:5500/"
+
         // Gestion des erreurs
     } else if (response.status == 401 || 404) {
         alert("Erreur dans l’identifiant ou le mot de passe")
     } else {
-        alert("Désolé nous ne pouvons donner suite à votre demande, un problème est survenu.")
+        alert("Désolé nous ne pouvons donner suite à votre demande pour le moment, un problème est survenu.")
     }
 })
 

@@ -9,12 +9,11 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
 		rel="stylesheet">
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
 		integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
 		crossorigin="anonymous" referrerpolicy="no-referrer">
-
 	<meta name="description" content="">
+
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="./assets/script.js"></script>
 	<script type="module" src="./assets/modal.js"></script>
@@ -25,9 +24,9 @@
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
+				<!-- Ajout des lien -->
 				<li class="liActivated">projets</li>
 				<li><a href="#contact">contact</a></li>
-				<!-- Ajout du lien login -->
 				<li><a href="pagesHtml/login.html" class="login-link">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
@@ -53,7 +52,7 @@
 			<h2>
 				Mes projets
 				<!-- Bouton d'ouverture de la modale -->
-				<a class="linkModifierElement linkModifierElementRemove" href="#" role="button" data-target="#modal"
+				<a class="linkEditItem linkEditItemRemove" href="#" role="button" data-target="#modal"
 					data-toggle="modal">
 					<i class="fa-regular fa-pen-to-square"></i>
 					Modifier
@@ -72,14 +71,15 @@
 				<input type="email" name="email" id="email">
 				<label for="message">Message</label>
 				<textarea name="message" id="message" cols="30" rows="10"></textarea>
-				<input type="submit" value="Envoyer">
+				<input type="submit" class="contactForm" value="Envoyer" disabled >
 			</form>
 		</section>
 
 		<!-- Modale -->
 		<div id="modal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="tiltleModal">
+			<!-- modal 1er affichage -->
 			<div class="modal-content modal1">
-				<div class="close-modal" role="button" data-dismiss="dialog"><i class="fa-solid fa-xmark"></i></div>
+				<div class="close-modal" role="button"><i class="fa-solid fa-xmark"></i></div>
 				<div class="modal-header">
 					<h3 id="tiltleModal" class="tiltleModal">Galerie photo</h3>
 				</div>
@@ -88,26 +88,26 @@
 					<a href="#" class="btn addPicture" role="button">Ajouter une photo</a>
 				</footer>
 			</div>
-			<div class="modal-content modal2">
-				<div class="close-modal" role="button" data-dismiss="dialog"><i class="fa-solid fa-arrow-left"></i><i
+			<!-- modal 2ème affichage -->
+			<div class="modal-content modal2 displayNone">
+				<div class="close-modal" role="button"><i class="fa-solid fa-arrow-left"></i><i
 						class="fa-solid fa-xmark"></i></div>
 				<div class="modal-header">
 					<h3 id="tiltleModal" class="tiltleModal">Ajout photo</h3>
 				</div>
-				<form class="modale-projet-form" action="" enctype="multipart/form-data">
-
-					<div class="pictureContainer">
-						<i class="fa-regular fa-image"></i>
-						<button class="btn btnAddPicture" input type="file" name="photo" id="photo">+ Ajouter photo</button>
-						<p>jpg, png : 4mo max</p>
+				<form class="formModal" method="post" action="" enctype="multipart/form-data">
+					<div class="pictureContainer preview">
+							<i class="fa-regular fa-image"></i>
+							<label class="btn btnAddPicture" for="image">+ Ajouter photo</label>
+							<input type="file" name="image" id="image" accept=".jpg, .png">
+							<p>jpg, png : 4mo max</p>
 					</div>
-					<div class=" formContent">
-						<label for="titre">Titre</label>
-						<input type="text" name="titre" id="titre">
-					
-						<label for="categorie">Catégorie</label>
-						<select name="categorie" id="categorie">
-							<option> </option>
+					<div class="formContent">
+						<label for="title">Titre</label>
+						<input type="text" name="title" id="title">
+						<label for="category">Catégorie</label>
+						<select name="category" id="category">
+							<option value="0"> </option>
 							<option value="1">Objets</option>
 							<option value="2">Appartements</option>
 							<option value="3">Hôtels & restaurants</option>
@@ -115,13 +115,11 @@
 					</div>
 					<div class="line">
 					</div>
-						<input type="submit" class="btn" id ="btnGrey" value="Ajouter le projet">
-
+					<input type="submit" class="btn btnGrey" value="Valider">
+				</form>
 			</div>
 		</div>
 	</main>
-
-
 	<footer>
 		<nav>
 			<ul>

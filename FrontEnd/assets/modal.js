@@ -1,3 +1,7 @@
+// Import de fonctions provenant du fichier "script.js"
+import { renderWorks } from "./script.js"
+
+
 // Récupération des "works" (projets) depuis l'API et création du corps de la modale 
 // *********************************************************************************
 
@@ -9,7 +13,6 @@ const works = await response.json()
 
 // Fonction qui permet l'affichage des projets "works" sur la modale
 // """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 function renderWorksModal(works) {
     works.map((workModal) => {
 
@@ -19,13 +22,11 @@ function renderWorksModal(works) {
         // Création d’une balise dédiée à un workModal
         const figureElement = document.createElement("figure")
         figureElement.dataset.id = workModal.id
-
-        const linkElement = document.createElement("a")
-        linkElement.setAttribute("role", "button")
-
+        
         const trashElement = document.createElement("i")
         trashElement.classList.add("fa-solid", "fa-trash-can")
         trashElement.dataset.id = workModal.id
+        trashElement.setAttribute("role", "button")
 
         const imageElement = document.createElement("img")
         imageElement.src = workModal.imageUrl
@@ -35,8 +36,7 @@ function renderWorksModal(works) {
         // On rattache la balise modalBody à la modale
         modalBody.appendChild(figureElement)
         figureElement.appendChild(imageElement)
-        figureElement.appendChild(linkElement)
-        linkElement.appendChild(trashElement)
+        figureElement.appendChild(trashElement)
     })
 }
 
@@ -53,6 +53,11 @@ renderWorksModal(works)
 // """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
+// Déclarations
+const modal = document.querySelector(".modal")
+const modal1 = document.querySelector(".modal1")
+const modal2 = document.querySelector(".modal2")
+
 function openCloseModal() {
     // on récupère le bouton d'ouverture de la modale
     const modalButton = document.querySelector("[data-toggle=modal]")
@@ -64,6 +69,8 @@ function openCloseModal() {
 
         // On affiche la modale
         modal.classList.add("show")
+        modal1.classList.remove("displayNone")
+        modal2.classList.add("displayNone")
     })
 
     // On récupère le bouton de fermeture de la modale et on supprime l'affichage de la modale
@@ -73,7 +80,6 @@ function openCloseModal() {
             modal.classList.remove("show")
         })
     })
-    
 
     // On gère la fermeture lors du clic en dehors de la modale
     modal.addEventListener("click", () => {
@@ -81,9 +87,11 @@ function openCloseModal() {
     })
 
     // On évite la propagation du clic d'un enfant à son parent
+    // Pour le 1er affichage de la modale
     modal.children[0].addEventListener("click", (event) => {
         event.stopPropagation()
     })
+    // Pour le 2ème affichage de la modale
     modal.children[1].addEventListener("click", (event) => {
         event.stopPropagation()
     })
@@ -101,6 +109,8 @@ openCloseModal()
 // Fonction qui permet de supprimer un "work" de la modale, de l'html et de la base de données
 // """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+const token = localStorage.token
+
 function deleteWork() {
 
     // Gestion du clic sur l'icône poubelle (suppression work)
@@ -111,24 +121,25 @@ function deleteWork() {
     // On boucle sur ces derniers pour écouter un éventuel évènement
     for (let button of trashButtons) {
         button.addEventListener("click", async function (e) {
+
             // On empêche la navigation
             e.preventDefault();
-            // On récupère le data-id du bouton de suppression
+
+            // On récupère le data-id du bouton de suppression et on supprime le work de l'API
             let target = this.dataset.id
-            const token = localStorage.token
             const response = await fetch("http://localhost:5678/api/works/" + target, {
-            // const response = await fetch("http://localhost:5678/api/works/5", {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${token}` }
             })
-            console.log(response.status)
-                                    // si je court-circuite le code en mettant la condition à 204 tt fonctionne !!
-            if (response.status == 200) {
+
+            // Si j'ai le code 204 en retour, je récupère l'ensemble des works ayant le même identifiant que la poubelle et je les suppriment (gallerie et modale)
+            if (response.status == 204) {
                 const figures = document.querySelectorAll("figure[data-id='" + target + "']")
-                console.log(figures);
                 figures.forEach(figure => {
                     figure.remove()
                 })
+
+            // Gestion des erreurs
             } else if (response.status == 401) {
                 alert("Accès non autorisé")
             } else if (response.status == 500) {
@@ -150,41 +161,167 @@ deleteWork()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-// Affichage partie Ajout photo
+// Navigation dans la modale
+// """"""""""""""""""""""""""
 
-// const addPicture = document.querySelector(".addPicture")
-// const modal1 = document.querySelector(".modal1")
-// const modal2 = document.querySelector(".addPicture")
+// Gestion du clic sur le bouton "Ajouter une photo"
+const addPicture = document.querySelector(".addPicture")
 
+addPicture.addEventListener("click", () => {
+    modal1.classList.add("displayNone")
+    modal2.classList.remove("displayNone")
+})
 
-// addPicture.addEventListener("click", () => {
-//     modal1.style.display = "none"
-//     modal2.style.display = null
-// })
+// Gestion du clic sur la "flèche gauche"
+const arrowLeft = document.querySelector(".fa-arrow-left")
 
-// const arrowLeft = document.querySelector(".fa-arrow-left")
+arrowLeft.addEventListener("click", () => {
+    modal1.classList.remove("displayNone")
+    modal2.classList.add("displayNone")
 
-// arrowLeft.addEventListener("click", () => {
-//     modal1.style.display = null
-//     modal2.style.display = "none"
-// })
-
-
-
+})
 
 
-//     // 
-//     document.querySelector(".tiltleModal").innerHTML="Ajout photo"
-//     document.querySelector(".modal-body").innerHTML=""
-//     const modalBody = document.querySelector(".modal-body")
-//     const divElement = document.createElement("div")
-//     const iconElement = document.createElement("i")
-//     const buttonElement = document.createElement("button")
-//     const pElement = document.createElement("p")
-//     const formElement = document.createElement("form")
-//     const inputElement = document.createElement("input")
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+// Gestion de l'input type file : validité du fichier et prévisualisation du projet
+// """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+// Déclarations
+const inputFile = document.querySelector("input[type=file]")
+const preview = document.querySelector(".preview")
+const labelFile = document.querySelector(".pictureContainer label")
+const inconFile = document.querySelector(".pictureContainer .fa-image")
+const pFile = document.querySelector(".pictureContainer p")
+
+// Gestion de l'input type file
+inputFile.addEventListener("change", updateImageDisplay)
+
+function updateImageDisplay() {
+    
+    const file = inputFile.files[0]
+    // vérification du type et  de la taille du fichier
+    
+    if (validFileType(file) && validFileSize(file)) {
+
+        // Suppression de l'affichage des différents éléments pour laisser la place à l'aperçu
+        labelFile.style.display = "none"
+        inconFile.style.display = "none"
+        pFile.style.display = "none"
+
+        // Création de l'aperçu de l'image à ajouter
+        const image = document.createElement("img")
+        
+        // Définition de la source en créant un URL objet
+        image.src = URL.createObjectURL(file)
+        image.alt = image.title = file.name
+        image.classList.add("imgPreview")
+        preview.appendChild(image)
+
+        // Gestion des erreurs
+    } else {
+        alert("Votre photo n'est pas au bon format ou dépasse 4mo")
+    }
+}
 
 
+// Fonction qui permet de valider le type de donnée
+const fileTypes = [
+    "image/jpeg",
+    "image/png"
+]
 
+function validFileType(file) {
+    return fileTypes.includes(file.type)
+}
+
+// Fonction qui permet de valider la taille des données
+function validFileSize(file) {
+    if (file.size < 4e6) {
+        return true
+    } else {
+        return false
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+// Gestion de l'input type submit => "Ajouter le projet"
+// """""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+// Récupération du formulaire de la modale
+const formModal = document.querySelector(".formModal")
+
+// Gestion du formulaire
+formModal.addEventListener("submit", async (event) => {
+    event.preventDefault()
+    const title = document.querySelector("#title").value
+    const category = document.querySelector("#category").value
+
+    // Gestion des erreurs de saisie des différents champs
+    if(inputFile.files[0] === undefined) {
+        alert("Veuillez ajouter la photo de votre projet");
+        return
+    }
+    if (title === "") {
+        alert("Veuillez renseigner le titre du projet");
+        return;
+    } else if (category == "0") {
+        alert("Veuillez choisir une catégorie valide");
+        return;
+    } else {
+        // Création de "formData" qui contient toutes les données récupérées du formulaire
+        const formData = new FormData(formModal)
+
+        // Envoi des données du formulaire pour ajouter un projet via une requête fetch
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            body: formData,
+        });
+
+        // Formatage de la réponse en Json, et réponse mise dans un tableau pour pouvoir l'utiliser par la suite dans les fonctions
+        const worksAdded = [await response.json()]
+        
+        if (response.status === 201) {
+            alert("Projet ajouté avec succès :)")
+            
+            // Redirection vers le premier affichage de la modale
+            modal1.classList.remove("displayNone")
+            modal2.classList.add("displayNone")
+
+            // Appel des différentes fonctions avec le nouveau paramètre "worksAdded" pour afficher ce nouveau projet dans la gallerie et la modale sans rechargement de la page
+            renderWorksModal(worksAdded)
+            renderWorks(worksAdded)
+
+            // Permet la suppression du nouveau projet créé
+            deleteWork()
+            
+            // Remise à zéro du formulaire
+            formModal.reset()
+
+            // Suppression de l'image de prévisualisation (précédente)
+            preview.removeChild(preview.lastChild)
+
+            // Affichage par défaut
+            labelFile.style.display = null
+            inconFile.style.display = null
+            pFile.style.display = null
+            
+        // Gestion des erreurs
+        } else if (response.status === 400) {
+            alert("Merci de remplir tous les champs")
+        } else if (response.status === 500) {
+            alert("Erreur serveur")
+        } else if (response.status === 401) {
+            alert("Vous n'êtes pas autorisé à ajouter un projet")
+            window.location.href = "http://127.0.0.1:5500/pagesHtml/login.html"
+        }
+    }
+})
