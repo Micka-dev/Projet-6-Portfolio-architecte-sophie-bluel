@@ -261,8 +261,7 @@ a {
 	color: inherit;
 }
 
-
-.linkModifierElement {
+.linkEditItem {
 	color: #000;
 	font-family: "Work Sans";
 	font-size: 14px;
@@ -274,7 +273,7 @@ a {
 	display: inline;
 }
 
-.linkModifierElementRemove {
+.linkEditItemRemove {
 	display: none;
 }
 
@@ -299,7 +298,9 @@ a {
 }
 
 .filterButton,
-.btn {
+.btn,
+.contactForm,
+.logForm {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: #1D6154;
@@ -313,13 +314,14 @@ a {
 
 .filterButton:hover,
 .btn:hover,
-.filterButtonActivated {
+.filterButtonActivated,
+#logForm input[type="submit"]:hover {
 	color: white;
 	background-color: #1D6154;
 }
 
 
-/* ajout code fenêtre modal */
+/******* ajout code fenêtre modal *********/
 
 * {
 	box-sizing: border-box;
@@ -335,7 +337,6 @@ a {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.3);
-	/* z-index: 1000; */
 	visibility: hidden;
 	opacity: 0;
 	transition: .2s;
@@ -351,7 +352,7 @@ a {
 	/* Ajoute une barre pour scroller au besoin */
 	overflow: auto;
 	width: 630px;
-	/* Permet de laisser une marge en cas d'écran ou fenêtre trop petit */
+	/* Permet de laisser une marge en cas d'écran ou fenêtre trop petits */
 	max-width: calc(100vw - 20px);
 	max-height: calc(100vh - 20px);
 	padding: 25px;
@@ -362,11 +363,7 @@ a {
 	position: relative;
 }
 
-/* .modal-content.modal1{
-	display: none;
-} */
-
-.modal-content.modal2{
+.displayNone {
 	display: none;
 }
 
@@ -415,6 +412,29 @@ a {
 	position:relative
 }
 
+/* trash link */
+.fa-trash-can {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	background-color: #000000;
+	color: #ffffff;
+	padding: 3px 4px;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.modal-footer {
+	padding: 45px 0;
+	border-top: solid 1px #B3B3B3;
+}
+
+.line {
+	height: 25px;
+	border-bottom: solid 1px #B3B3B3;
+
+}
+
 .pictureContainer {
 	width: 420px;
 	height: 170px;
@@ -423,6 +443,7 @@ a {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 	padding: 20px;
 	margin-bottom: 30px;
 	}
@@ -440,7 +461,6 @@ a {
 	font-size: 75px;
 	color: #B9C5CC;
 	margin-bottom: 7px;
-
 }
 
 .btnAddPicture {
@@ -481,37 +501,21 @@ a {
 	background: #FFF;
 }
 
-#btnGrey {
+.btnGrey {
 	background-color: #A7A7A7;
+	color: #ffffff;
 	border: none;
 }
 
-/* trash link */
-.modal-body figure a {
-	cursor: pointer;
+input[type="file"] {
+	opacity: 0;
+	height: 0px;
 }
 
-.fa-trash-can {
-	position: absolute;
-	top: 5px;
-	right: 5px;
-	background-color: #000000;
-	color: #ffffff;
-	padding: 3px 4px;
-	border-radius: 2px;
+.imgPreview {
+	width: 130px;
+	height: 170px;
 }
-
-.modal-footer {
-	padding: 45px 0;
-	border-top: solid 1px #B3B3B3;
-}
-
-.line {
-	height: 25px;
-	border-bottom: solid 1px #B3B3B3;
-
-}
-
 
 /* FIN AJOUT CODE */
 
@@ -557,13 +561,20 @@ a {
 input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
 	margin: 2em auto;
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
 	cursor: pointer;
+}
+
+
+.contactForm {
+	background-color: #1D6154;
+	color: white;
+}
+#logForm input[type="submit"]{
+	border: 1px solid #1D6154
 }
 
 footer nav ul {

@@ -1,7 +1,6 @@
 // Script type="module" définie dans page index html, ce qui permet d'utiliser await directement car on est déjà en asynchrone
 
 
-
 // Fonction qui permet l'affichage des projets "works" sur la page web
 // """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -11,11 +10,10 @@ const response = await fetch('http://localhost:5678/api/works');
 
 // Formatage de la reponse en json
 const works = await response.json();
-console.log(works)
 
 // Fonction qui affiche tous les projets, les "works" sur la page web
 
-function renderWorks(works) {
+export function renderWorks(works) {
     
     // Création des balises
     
@@ -125,7 +123,7 @@ function selectFilter(event) {
 }
 
 
-// Fonction qui réinitialise les filtres (permet qu'ils soient tous déselectionnées)
+// Fonction qui réinitialise l'apparence des filtres (permet qu'ils soient tous déselectionnées)
 
 function resetFilters() {
     let filters = document.querySelectorAll(".filterButton")
@@ -181,11 +179,12 @@ const token = localStorage.token
 function isTokenValid(token) {
     // Transformation du "token" en tableau afin de récupérer par la suite le header, le payload et la signature de manière indépendante
     const arrayToken = token.split('.')
-    // Décodage de la chaîne de données (codée en encodage Base64) grâce à la fonction atob() ; et récupération du timesamp d'experation du token dans l'objet
+    // Décodage de la chaîne de données (codée en encodage Base64) grâce à la fonction atob() ; et je pare les données avec JSON.parse() pour qu'elles deviennent 
+    // un objet JavaScript ; ce qui va me permettre de récupérer le timestamp d'expiration du token contenu dans l'objet
     const tokenPayLoad = JSON.parse(atob(arrayToken[1]))
-    // Déclaration de la variable "now" correspondant au timestamp au moment T
+    // Déclaration de la variable "now" correspondant au timestamp au moment T (la fonction getTime() permet de donner le timestamp)
     const now = Math.floor(new Date().getTime() / 1000)
-    // Condition permettant de controler si le token est toujours valide
+    // Condition permettant de controler si le token est toujours valide (on récupére le timestamp du payload)
     if (now <= tokenPayLoad.exp) {
         return true
     }else{
@@ -193,17 +192,12 @@ function isTokenValid(token) {
     }
 }
 
-// Appel de la fonction permettant le controle de validité du token
-
-isTokenValid(token)
-
-//                                  *************
 
 // Fonction qui vérifie les conditions d'authentification nécessaire à l'accès à la page d'édition
 // """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-function isLoged() {
-    if (localStorage.token && isTokenValid(token) == true){
+function isLogged() {
+    if (localStorage.token && isTokenValid(token)){
         return true
     }else{
         return false
@@ -212,7 +206,7 @@ function isLoged() {
 
 // Appel de la fonction permettant de vérifier si l'utilisateur est connecté
 
-isLoged()
+isLogged()
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -222,7 +216,7 @@ isLoged()
 // """"""""""""""""""""""""""""""""""""""""""""""""
 
 function renderEditionPage () {
-    if (isLoged() == true) {
+    if (isLogged()) {
         const logLink = document.querySelector(".login-link")
         logLink.innerText = "logout"
         // Déconnection au clic sur le lien "logout"
@@ -246,8 +240,8 @@ function renderEditionPage () {
         divElement.appendChild(pElement)
         
         // Affichage du lien modifier et de l'icône
-        const linkModifierElement = document.querySelector(".linkModifierElement")
-        linkModifierElement.classList.remove("linkModifierElementRemove")
+        const linkEditItem = document.querySelector(".linkEditItem")
+        linkEditItem.classList.remove("linkEditItemRemove")
         
         // Supression des filtres
         const filters = document.querySelector(".filters")
