@@ -6,10 +6,11 @@
 
 // Récupération des "works" (projets) depuis l'API. 
 
-const response = await fetch('http://localhost:5678/api/works');
+const response = await fetch('http://localhost:5678/api/works')
 
 // Formatage de la reponse en json
-const works = await response.json();
+const works = await response.json()
+
 
 // Fonction qui affiche tous les projets, les "works" sur la page web
 
@@ -20,24 +21,24 @@ export function renderWorks(works) {
     works.map((work) => {
         
         // Récupération de l'élément du DOM qui accueillera les works
-        const gallery = document.querySelector(".gallery");
+        const gallery = document.querySelector(".gallery")
 
         // Création d’une balise dédiée à un work
-        const figureElement = document.createElement("figure");
+        const figureElement = document.createElement("figure")
         figureElement.dataset.id = work.id
         
-        const imageElement = document.createElement("img");
-        imageElement.src = work.imageUrl;
-        imageElement.alt = work.title;
+        const imageElement = document.createElement("img")
+        imageElement.src = work.imageUrl
+        imageElement.alt = work.title
         
-        const figcaptionElement = document.createElement("figcaption");
-        figcaptionElement.innerText = work.title;
+        const figcaptionElement = document.createElement("figcaption")
+        figcaptionElement.innerText = work.title
         
         // Rattachement de nos balises au DOM
         // On rattache la balise figureElement à la div gallery
-        gallery.appendChild(figureElement);
-        figureElement.appendChild(imageElement);
-        figureElement.appendChild(figcaptionElement);
+        gallery.appendChild(figureElement)
+        figureElement.appendChild(imageElement)
+        figureElement.appendChild(figcaptionElement)
     })
 }
 
@@ -55,14 +56,14 @@ renderWorks(works)
 
 // Récupération des "categories" (filtres) depuis l'API
 
-const answer = await fetch('http://localhost:5678/api/categories');
-const categories = await answer.json();
+const answer = await fetch('http://localhost:5678/api/categories')
+const categories = await answer.json()
 
 
 // Fonction qui permet de créer un bouton filtre
 
 function createButton(name, id, classes) {
-    const buttonElement = document.createElement("button");
+    const buttonElement = document.createElement("button")
     buttonElement.innerText = name
     buttonElement.dataset.id = id
     classes.map((className) => {
@@ -77,7 +78,7 @@ function renderFilters(categories) {
     // Création des balises
     
     // Récupération de l'élément du DOM qui accueillera les filtres
-    const filters = document.querySelector(".filters");
+    const filters = document.querySelector(".filters")
     
     // Création d’une balise dédiée au filtre "Tous" (par défaut)
     const buttonElement = createButton("Tous", "0", ["filterButton", "filterButtonActivated"])
@@ -92,7 +93,7 @@ function renderFilters(categories) {
         const buttonElement = createButton(category.name, category.id, ["filterButton"])
         
         // Rattachement des balises crées au DOM
-        filters.appendChild(buttonElement);
+        filters.appendChild(buttonElement)
     })
 }
 
@@ -111,7 +112,7 @@ renderFilters(categories)
 // Fonction qui supprime la gallery
 
 function removeGallery() {
-    document.querySelector(".gallery").innerHTML = "";
+    document.querySelector(".gallery").innerHTML = ""
 }
 
 
@@ -179,8 +180,7 @@ const token = localStorage.token
 function isTokenValid(token) {
     // Transformation du "token" en tableau afin de récupérer par la suite le header, le payload et la signature de manière indépendante
     const arrayToken = token.split('.')
-    // Décodage de la chaîne de données (codée en encodage Base64) grâce à la fonction atob() ; et je pare les données avec JSON.parse() pour qu'elles deviennent 
-    // un objet JavaScript ; ce qui va me permettre de récupérer le timestamp d'expiration du token contenu dans l'objet
+    // Décodage de la chaîne de données (codée en encodage Base64) grâce à la fonction atob() ; et je pare les données avec JSON.parse() pour qu'elles deviennent un objet JavaScript ; ce qui va me permettre de récupérer le timestamp d'expiration du token contenu dans l'objet
     const tokenPayLoad = JSON.parse(atob(arrayToken[1]))
     // Déclaration de la variable "now" correspondant au timestamp au moment T (la fonction getTime() permet de donner le timestamp)
     const now = Math.floor(new Date().getTime() / 1000)
@@ -225,17 +225,17 @@ function renderEditionPage () {
         })
         
         // Création de la blackBar (bar mode édition)
-        const divElement = document.createElement("div");
-        const iconElement = document.createElement("i");
-        const pElement = document.createElement("p");
+        const divElement = document.createElement("div")
+        const iconElement = document.createElement("i")
+        const pElement = document.createElement("p")
         
         divElement.classList.add("blackBar")
         iconElement.classList.add("fa-regular", "fa-pen-to-square")
         pElement.innerText="Mode édition"
         
-        const headerElement = document.querySelector("header")
+        const bodyElement = document.querySelector("body")
         
-        headerElement.before(divElement)
+        bodyElement.before(divElement)
         divElement.appendChild(iconElement)
         divElement.appendChild(pElement)
         

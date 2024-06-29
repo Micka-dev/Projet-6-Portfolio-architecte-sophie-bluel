@@ -123,7 +123,7 @@ function deleteWork() {
         button.addEventListener("click", async function (e) {
 
             // On empêche la navigation
-            e.preventDefault();
+            e.preventDefault()
 
             // On récupère le data-id du bouton de suppression et on supprime le work de l'API
             let target = this.dataset.id
@@ -170,6 +170,20 @@ const addPicture = document.querySelector(".addPicture")
 addPicture.addEventListener("click", () => {
     modal1.classList.add("displayNone")
     modal2.classList.remove("displayNone")
+
+    // Remise à zéro du formulaire
+    formModal.reset()
+
+    // Suppression de l'image de prévisualisation (si elle existe)
+    const image = document.querySelector(".imgPreview")
+    if(image != undefined) {    
+        preview.removeChild(preview.lastChild)
+    }
+
+    // Affichage par défaut
+    labelFile.style.display = null
+    inconFile.style.display = null
+    pFile.style.display = null
 })
 
 // Gestion du clic sur la "flèche gauche"
@@ -178,7 +192,6 @@ const arrowLeft = document.querySelector(".fa-arrow-left")
 arrowLeft.addEventListener("click", () => {
     modal1.classList.remove("displayNone")
     modal2.classList.add("displayNone")
-
 })
 
 
@@ -264,15 +277,15 @@ formModal.addEventListener("submit", async (event) => {
 
     // Gestion des erreurs de saisie des différents champs
     if(inputFile.files[0] === undefined) {
-        alert("Veuillez ajouter la photo de votre projet");
+        alert("Veuillez ajouter la photo de votre projet")
         return
     }
     if (title === "") {
-        alert("Veuillez renseigner le titre du projet");
-        return;
+        alert("Veuillez renseigner le titre du projet")
+        return
     } else if (category == "0") {
-        alert("Veuillez choisir une catégorie valide");
-        return;
+        alert("Veuillez choisir une catégorie valide")
+        return
     } else {
         // Création de "formData" qui contient toutes les données récupérées du formulaire
         const formData = new FormData(formModal)
@@ -284,7 +297,7 @@ formModal.addEventListener("submit", async (event) => {
                 Authorization: `Bearer ${token}`,
             },
             body: formData,
-        });
+        })
 
         // Formatage de la réponse en Json, et réponse mise dans un tableau pour pouvoir l'utiliser par la suite dans les fonctions
         const worksAdded = [await response.json()]
@@ -302,17 +315,6 @@ formModal.addEventListener("submit", async (event) => {
 
             // Permet la suppression du nouveau projet créé
             deleteWork()
-            
-            // Remise à zéro du formulaire
-            formModal.reset()
-
-            // Suppression de l'image de prévisualisation (précédente)
-            preview.removeChild(preview.lastChild)
-
-            // Affichage par défaut
-            labelFile.style.display = null
-            inconFile.style.display = null
-            pFile.style.display = null
             
         // Gestion des erreurs
         } else if (response.status === 400) {

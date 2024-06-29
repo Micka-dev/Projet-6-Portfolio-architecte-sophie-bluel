@@ -13,14 +13,14 @@ formLogin.addEventListener("submit", async (event) => {
     }
 
     // Création de l’objet login (charge utile) au format JSON
-    const bodyLogin = JSON.stringify(objectLogin);
+    const bodyLogin = JSON.stringify(objectLogin)
 
     // Appel de la fonction fetch avec toutes les informations nécessaires
     const response = await fetch("http://localhost:5678/api/users/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: bodyLogin
-    });
+    })
     // Formatage de la réponse en Json
     let responseJson = await response.json()
 
