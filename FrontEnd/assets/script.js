@@ -11,7 +11,6 @@ const response = await fetch('http://localhost:5678/api/works')
 // Formatage de la reponse en json
 const works = await response.json()
 
-
 // Fonction qui affiche tous les projets, les "works" sur la page web
 
 export function renderWorks(works) {
@@ -86,7 +85,7 @@ function renderFilters(categories) {
     // Rattachement des balises crées au DOM
     filters.appendChild(buttonElement)
     
-    // Création d’une balise dédiée au autres filtres
+    // Création d’une balise dédiée aux autres filtres
     categories.map((category) => {
         
         // Création d’une balise dédiée à un filtre
@@ -193,7 +192,7 @@ function isTokenValid(token) {
 }
 
 
-// Fonction qui vérifie les conditions d'authentification nécessaire à l'accès à la page d'édition
+// Fonction qui vérifie les conditions d'authentification nécessaires à l'accès à la page d'édition
 // """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function isLogged() {
@@ -203,10 +202,6 @@ function isLogged() {
         return false
     }
 }
-
-// Appel de la fonction permettant de vérifier si l'utilisateur est connecté
-
-isLogged()
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////

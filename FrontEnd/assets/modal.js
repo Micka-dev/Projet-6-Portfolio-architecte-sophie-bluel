@@ -33,7 +33,6 @@ function renderWorksModal(works) {
         imageElement.alt = workModal.title
 
         // Rattachement de nos balises au DOM
-        // On rattache la balise modalBody à la modale
         modalBody.appendChild(figureElement)
         figureElement.appendChild(imageElement)
         figureElement.appendChild(trashElement)
@@ -132,7 +131,7 @@ function deleteWork() {
                 headers: { Authorization: `Bearer ${token}` }
             })
 
-            // Si j'ai le code 204 en retour, je récupère l'ensemble des works ayant le même identifiant que la poubelle et je les suppriment (gallerie et modale)
+            // Si j'ai le code 204 en retour, je récupère l'ensemble des works ayant le même identifiant que la poubelle et je les supprime (gallerie et modale)
             if (response.status == 204) {
                 const figures = document.querySelectorAll("figure[data-id='" + target + "']")
                 figures.forEach(figure => {
@@ -214,7 +213,8 @@ inputFile.addEventListener("change", updateImageDisplay)
 function updateImageDisplay() {
     
     const file = inputFile.files[0]
-    // vérification du type et  de la taille du fichier
+
+    // vérification du type et de la taille du fichier
     
     if (validFileType(file) && validFileSize(file)) {
 
@@ -226,7 +226,7 @@ function updateImageDisplay() {
         // Création de l'aperçu de l'image à ajouter
         const image = document.createElement("img")
         
-        // Définition de la source en créant un URL objet
+        // Définition de la source en créant un URL objet et création de l'aperçu
         image.src = URL.createObjectURL(file)
         image.alt = image.title = file.name
         image.classList.add("imgPreview")
@@ -239,7 +239,7 @@ function updateImageDisplay() {
 }
 
 
-// Fonction qui permet de valider le type de donnée
+// Fonction qui permet de valider le type de donnée et les sélectionne par défaut
 const fileTypes = [
     "image/jpeg",
     "image/png"
@@ -309,7 +309,7 @@ formModal.addEventListener("submit", async (event) => {
             modal1.classList.remove("displayNone")
             modal2.classList.add("displayNone")
 
-            // Appel des différentes fonctions avec le nouveau paramètre "worksAdded" pour afficher ce nouveau projet dans la gallerie et la modale sans rechargement de la page
+            // Appel des différentes fonctions avec le nouveau paramètre "worksAdded" pour afficher ce nouveau projet dans la galerie et la modale sans rechargement de la page
             renderWorksModal(worksAdded)
             renderWorks(worksAdded)
 
